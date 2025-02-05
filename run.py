@@ -1,6 +1,7 @@
 import gspread  
 from google.oauth2.service_account import Credentials
-from datetime import date
+import json
+import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -16,27 +17,24 @@ SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
 # welcome
 print("Good morning Jo-Ann, lets make some money!\n")
 
+# add datetime for service cart (W3Schools)
+print("Todays date is: ")
+date = datetime.datetime.now()
 
-# create input for date (ref Dimitri Patarroyo)
-dates = []
-DATE = str(input("Please enter the date here (YYYY-MM-DD): "))
-daily_date_picker = date.fromisoformat(DATE)
+# Convert the datetime object to a string in a specific format 
+date_str = date.strftime("%Y-%m-%d %H:%M:%S") 
 
-print(daily_date_picker)
+"""
+Serialize the object using the custom function 
+(error when running to worksheet - geeksforgeeks)
+"""
+json_data = json.dumps(date_str) 
 
-# open cart with date
+print(json_data) 
 
-# input cart Name 
+# add to google worksheet
+daily_cost_worksheet = SHEET.worksheet("daily_cost")
+daily_cost_worksheet.append_row("Date")
+print("Date added to worksheet")
 
-# choose relevent products to add to cart
-
-# calculate total price
-
-# calculate total cost and append daily_cost
-
-# calculate profit and append daily_profit
-
-# reset cart for next purchase
-
-
-
+date = datetime.datetime.now()
