@@ -1,5 +1,6 @@
 import gspread  
 from google.oauth2.service_account import Credentials
+from datetime import date
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -12,11 +13,16 @@ SCOPE_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPE_CREDS)
 SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
 
-pricelist = SHEET.worksheet('price_list')
-
-data = pricelist.get_all_values()
-
 # welcome
+print("Good morning Jo-Ann, lets make some money!\n")
+
+
+# create input for date (ref Dimitri Patarroyo)
+dates = []
+DATE = str(input("Please enter the date here (YYYY-MM-DD): "))
+daily_date_picker = date.fromisoformat(DATE)
+
+print(daily_date_picker)
 
 # open cart with date
 
