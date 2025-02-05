@@ -1,6 +1,7 @@
 import gspread  
 from google.oauth2.service_account import Credentials
 import json
+from json import JSONEncoder
 import datetime
 
 SCOPE = [
@@ -17,24 +18,35 @@ SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
 # welcome
 print("Good morning Jo-Ann, lets make some money!\n")
 
-# add datetime for service cart (W3Schools)
-print("Todays date is: ")
-date = datetime.datetime.now()
+# create a date generator - (stackoverflow solution)
+my_date = {'date': datetime.datetime.now()} 
 
-# Convert the datetime object to a string in a specific format 
-date_str = date.strftime("%Y-%m-%d %H:%M:%S") 
+#convert date to string
+my_date_str = my_date['date'].strftime('%Y-%m-%d %H:%M:%S') 
 
-"""
-Serialize the object using the custom function 
-(error when running to worksheet - geeksforgeeks)
-"""
-json_data = json.dumps(date_str) 
+class DateTimeEncoder(JSONEncoder):
+    """
+    create a date that is serializable to 
+    send to my worksheets, 
+    'https://pynative.com/python-serialize-datetime-into-json/'
+    """
+    def default(self, obj):
+        if isinstance(obj, (datetime.date)):
+            return obj.isoformat()
 
-print(json_data) 
+#serializing date
+my_dateJSONData = json.dumps(my_date, cls=DateTimeEncoder)
 
-# add to google worksheet
+print(my_dateJSONData)
+
+#add to google worksheet
 daily_cost_worksheet = SHEET.worksheet("daily_cost")
-daily_cost_worksheet.append_row("Date")
-print("Date added to worksheet")
+daily_profit_worksheet = SHEET.worksheet("daily_profit")
+#add to row
+daily_cost_worksheet.append_row([my_date_str])
+daily_profit_worksheet.append_row([my_date_str])
+print("Date added to worksheet\n")
 
-date = datetime.datetime.now()
+print("Please enter the clients name:")
+clients_name = input()
+    
