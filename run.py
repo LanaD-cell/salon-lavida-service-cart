@@ -16,4 +16,21 @@ pricelist = SHEET.worksheet('price_list')
 
 data = pricelist.get_all_values()
 
-print(data)
+# welcome
+
+# open cart with date
+
+# input cart Name 
+
+# choose relevent products to add to cart
+
+# calculate total price
+
+# calculate total cost and append daily_cost
+
+# calculate profit and append daily_profit
+
+# reset cart for next purchase
+
+
+
