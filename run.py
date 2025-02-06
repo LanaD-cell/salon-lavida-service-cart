@@ -1,11 +1,13 @@
 import gspread 
 from google.oauth2.service_account import Credentials
 
+
 def connect_to_google_sheets():
     # define scope
-    SCOPE = ["https://www.googleapis.com/auth/spreadsheets",
-             "https://www.googleapis.com/auth/drive.file",
-             "https://www.googleapis.com/auth/drive"
+    SCOPE = [
+        "https://www.googleapis.com/auth/spreadsheets",
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/drive"
     ]
 
     CREDS = Credentials.from_service_account_file('creds.json')
@@ -14,9 +16,18 @@ def connect_to_google_sheets():
     SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
     return SHEET
 
+
 class ServiceToDoApp:
-        # read for some more clarity :https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class#:~:text=self%20represents%20the%20instance%20of,of%20the%20class%20in%20python.&text=%22__init__%22%20is%20a%20reseved,constructor%20in%20object%20oriented%20concepts.
-    def __init__ (self):  # read: https://www.w3schools.com/python/python_functions.asp
+    """
+    read for some more clarity :https://micropyramid.com/blog/understand-
+    self-and-__init__-method-in-python-class#:~:text=self%20
+    represents%20the%20instance%20of,of%20the%20class%20in%20python.
+    &text=%22__init__%22%20is%20a%20reseved,
+    constructor%20in%20object%20oriented%20concepts.
+    """
+
+    def __init__ (self) :  
+        # read: https://www.w3schools.com/python/python_functions.asp
         
         # Create a product dict with price and cost    
         self.products_dict = {
@@ -27,7 +38,12 @@ class ServiceToDoApp:
             '005': {'name': 'Time', 'price': 65, 'cost': 0}
         }
         
-        self.service_to_do = []  #create list to hold the products chosen
+
+        # Create list to hold the products chosen
+        self.service_to_do = []  
+        self.total_price = 0
+        self.total_cost = 0
+       
 
         print("Good morning Jo-Ann, let's make some money!\n")
 
@@ -42,17 +58,20 @@ class ServiceToDoApp:
 
     def show_available_products(self):
         # Show the products that can be chosen, with product info
-         print("Available products: ")
+        print("Available products: ")
 
-         for code, details in self.products_dict.items():
-             print(f"{code}. {details['name']} -Price: ${details['price']} -Cost: ${details['cost']}")
+        for code, details in self.products_dict.items():
+            print(f"{code}. {details['name']} -Price: ${details['price']} -Cost: ${details['cost']}")
     
     def add_product(self, code):
-        #add product to list
+        # Add product to list
         if code in self.products_dict:
             product = self.products_dict[code]
             self.service_to_do.append({"product": product['name'], "done": False})
+            self.total_price += product['price']
+            self.total_cost += product['cost']
             print(f"Product '{product['name']}' added!")
+            print(f"Total Price:${self.total_price} | Total Cost: ${self.total_cost}")
         else:
             print("Oh no that Product is not in your list, choose another")  
 
@@ -75,15 +94,24 @@ class ServiceToDoApp:
         if not self.service_to_do:
             print("\n No product selected!")
         else:
-            print(f"\n Selected Products: ")
+            print("\n Selected Products: ")
             for item in self.service_to_do:
                 print(f"- {item['product']}")
   
     def remove_product(self):
         # Remove Item from chosen list
         task_to_remove = input("Enter the product to be removed: ")
-        self.service_to_do = [item for item in self.service_to_do if item["product"] != task_to_remove]
-        print(f"{task_to_remove} removed from the list.")
+        for item in self.service_to_do:
+            if item["product"] == tas_to_remove:
+                product_name = item['product']
+                product_code = next((code for code, details in self.products_dict() if details['name'] == product_name), None)
+
+                if product_code:
+                    self.total_price -= self.products_dict[product_code]['price']
+                    self.total_cost -= self.products_dict[product_code]['cost']
+                self.service_to_do.remove(item)    
+                print(f"{task_to_remove} removed from the list.")
+                break
 
         self.show_selected_products()
 
@@ -92,10 +120,19 @@ class ServiceToDoApp:
         if not self.service_to_do:
             print("No products to check out.")
         else:
-            print("Checkout complete! Saving sales data to file...")
+            # Calculate the total price and cost when checking out and display on screen
+            total_price, total_cost = self.calculate_totals()
+
+            print(f"Checkout complete! Saving sales data to file...")
+            print(f"Total Price: ${total_price}")
+            print(f"Total Cost: ${total_cost}")
+            print(f"Profit: ${total_price - total_cost}")
+
+
 
             # Write the data to the txt file
-            with open("daily_sale.txt", "a") as file:  # read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, https://www.youtube.com/watch?v=Dw85RIvQlc8
+            # Read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, https://www.youtube.com/watch?v=Dw85RIvQlc8
+            with open("daily_sale.txt", "a") as file:  
                 for item in self.service_to_do:
                     product_name = item['product']
 
@@ -107,13 +144,25 @@ class ServiceToDoApp:
                         file.write(f"{product_name} - ${product_price} (Cost: ${product_cost})\n")
                     else:
                         print(f"Error: Product code for '{product_name}' not found")
+    
 
+    def calculate_totals(self):
+        # Calculate totals for each list created
+        for item in self.service_to_do:
+            product_name = item['product']
+            product_code = next((code for code, details in self.products_dict.items() if details['name'] == product_name), None)
+
+            if product_code:
+                self.total_price += self.products_dict[product_code]['price']
+                self.total_cost += self.products_dict[product_code]['cost']
+
+        return total_price, total_cost        
      
-    def run(self):
-        while True:
+    
+    def run(self) :
+        while True :
             self.display_menu()
             choice = input("Enter your choice: ")
-
             if choice == '1':
                 self.add_products()
             elif choice == '2':
@@ -126,6 +175,7 @@ class ServiceToDoApp:
                 break   # break the while loop
             else: 
                 print("Invalid product choice, try apain.")
+
 
 app = ServiceToDoApp()
 app.run()
