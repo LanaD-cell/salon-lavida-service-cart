@@ -43,18 +43,39 @@ def main():
         choice = input("Enter your choice: ")
 
         if choice == '1':
-            n_service_to_do = int(input("How may task you want to add: "))
+            n_service_to_do = int(input("How many products do you want to add: "))
             
             for i in range(n_service_to_do):
                 task = input("Enter the product: ")
-                service_to_do.append({"products": task, "done": False})
-                print("Product added!")
+                if task in products_dict:
+                   service_to_do.append({"products": task, "done": False})
+                   print("Product added!")
+            else:
+                print("Oh no that Product is not in your list, choose another")    
 
-        if choice.lower() == 'q':
+        elif choice == '2':
+            print("selected products: ")
+            for item in service_to_do:
+                print(f"- {item['product']} ")
+
+        elif choie == '3':
+            task_to_remove = input("Enter product to be removed: ")
+            service_to_do = [item for item in service_to_do if item["product"] != task_to_remove]   
+            print(f"{task_to_remove} removed from list.")
+
+        elif choice == '4':
+            if not service_to_do:
+                print("No pproducts to check out.")
+            else:
+                print("Checkout complete! Saving produucts to daily sales file...")
+
+                #add products sold to the daily sales file.
+
+
+        elif choice.lower() == 'q':
             break
 
-        else:
-            print("Oh no that Product is not in your list, choose another")
+        
 
 main()
 
