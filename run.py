@@ -26,26 +26,24 @@ class ServiceToDoApp:
     constructor%20in%20object%20oriented%20concepts.
     """
 
-    def __init__ (self) :  
+    def __init__ (self):  
+        self.total_price = 0
+        self.total_cost = 0
+
         # read: https://www.w3schools.com/python/python_functions.asp
-        
         # Create a product dict with price and cost    
         self.products_dict = {
             '001': {'name': '20 Volume Oxide', 'price': 55, 'cost': 15}, 
             '002': {'name': '30 Volume Oxide', 'price': 65, 'cost': 25}, 
-            '003': {'name': 'Be Blond Lifting Powder', 'price': 35, 'cost': 17}, 
+            '003': {'name': 'Be Blond Lifting Powder', 
+                    'price': 35, 'cost': 17}, 
             '004': {'name': 'Blowdry', 'price': 44, 'cost': 0}, 
             '005': {'name': 'Time', 'price': 65, 'cost': 0}
         }
-        
-
         # Create list to hold the products chosen
         self.service_to_do = []  
-        self.total_price = 0
-        self.total_cost = 0
        
-
-        print("Good morning Jo-Ann, let's make some money!\n")
+    print("Good morning Jo-Ann, let's make some money!\n")
 
     def display_menu(self):
         # Create a list of functions for the user to navigate the menu
@@ -61,30 +59,35 @@ class ServiceToDoApp:
         print("Available products: ")
 
         for code, details in self.products_dict.items():
-            print(f"{code}. {details['name']} -Price: ${details['price']} -Cost: ${details['cost']}")
+            print(f"{code}. {details['name']} - Price:${details['price']} - "
+                  f"Cost:${details['cost']}")
     
     def add_product(self, code):
         # Add product to list
         if code in self.products_dict:
             product = self.products_dict[code]
-            self.service_to_do.append({"product": product['name'], "done": False})
+            item = {"product": product['name'], "done": False}
+            self.service_to_do.append(item)
+
+            # Update totals
             self.total_price += product['price']
             self.total_cost += product['cost']
+
             print(f"Product '{product['name']}' added!")
-            print(f"Total Price:${self.total_price} | Total Cost: ${self.total_cost}")
+            print(f"Total Price:${self.total_price} | "
+                  f"Total Cost: ${self.total_cost}")
         else:
             print("Oh no that Product is not in your list, choose another")  
 
     def add_products(self):
         # Add multiple products 
         self.show_available_products()
-
-        n_service_to_do = int(input("\nHow many products do you want to add? "))
-
+        n_service_to_do = int(input
+                              ("\nHow many products do you want to add? "))
         for i in range(n_service_to_do):
             code = input("Enter the product code: ")
             if code in self.products_dict:
-               self.add_product(code)  
+                self.add_product(code)  
             else:
                 print("Product code not found, try again.")
         print(self.service_to_do)
@@ -102,17 +105,20 @@ class ServiceToDoApp:
         # Remove Item from chosen list
         task_to_remove = input("Enter the product to be removed: ")
         for item in self.service_to_do:
-            if item["product"] == tas_to_remove:
+            if item["product"] == task_to_remove:
                 product_name = item['product']
-                product_code = next((code for code, details in self.products_dict() if details['name'] == product_name), None)
+                product_code = next((code for code, details in 
+                                     self.products_dict.items() 
+                                     if details['name'] == product_name), None)
 
                 if product_code:
-                    self.total_price -= self.products_dict[product_code]['price']
+                    self.total_price -= self.products_dict
+                    [product_code]['price']
+                    
                     self.total_cost -= self.products_dict[product_code]['cost']
                 self.service_to_do.remove(item)    
                 print(f"{task_to_remove} removed from the list.")
                 break
-
         self.show_selected_products()
 
     def checkout(self):
@@ -121,46 +127,60 @@ class ServiceToDoApp:
             print("No products to check out.")
         else:
             # Calculate the total price and cost when checking out and display on screen
-            total_price, total_cost = self.calculate_totals()
+            total_price = self.total_price
+            total_cost = self.total_cost
 
-            print(f"Checkout complete! Saving sales data to file...")
+            print("Checkout complete! Saving sales data to file...")
             print(f"Total Price: ${total_price}")
             print(f"Total Cost: ${total_cost}")
             print(f"Profit: ${total_price - total_cost}")
 
-
-
-            # Write the data to the txt file
-            # Read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, https://www.youtube.com/watch?v=Dw85RIvQlc8
+            """
+            Write the data to the txt file
+            Read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, 
+            https://www.youtube.com/watch?v=Dw85RIvQlc8
+            """
             with open("daily_sale.txt", "a") as file:  
                 for item in self.service_to_do:
                     product_name = item['product']
-
-                    product_code = next((code for code, details in self.products_dict.items() if details['name'] == product_name), None)
+                    product_code = next((code for code, 
+                                         details in self.products_dict.items() if 
+                                         details['name'] == product_name), None)
 
                     if product_code:
                         product_price = self.products_dict[product_code]['price']
                         product_cost = self.products_dict[product_code]['cost'] 
-                        file.write(f"{product_name} - ${product_price} (Cost: ${product_cost})\n")
+                        file.write(f"{product_name} - ${product_price} "
+                                   f"(Cost: ${product_cost})\n")
                     else:
-                        print(f"Error: Product code for '{product_name}' not found")
-    
+                        print(f"Error: Product code for "
+                              f"'{product_name}' not found")
+                        
+            # Reset the list after checkout
+            self.service_to_do.clear()
 
+            self.total_cost = 0
+            self.total_price = 0            
+            print("Product list succesfully closed and ready for more action!")
+    
     def calculate_totals(self):
         # Calculate totals for each list created
+        total_price = 0
+        total_cost = 0
         for item in self.service_to_do:
             product_name = item['product']
-            product_code = next((code for code, details in self.products_dict.items() if details['name'] == product_name), None)
+            product_code = next((code for code, 
+                                 details in self.products_dict.items()
+                                 if details['name'] == product_name), None)
 
             if product_code:
                 self.total_price += self.products_dict[product_code]['price']
                 self.total_cost += self.products_dict[product_code]['cost']
 
-        return total_price, total_cost        
+        return total_price, total_cost
      
-    
-    def run(self) :
-        while True :
+    def run(self):
+        while True:
             self.display_menu()
             choice = input("Enter your choice: ")
             if choice == '1':
