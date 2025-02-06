@@ -16,7 +16,7 @@ def connect_to_google_sheets():
 
 class ServiceToDoApp:
         # read for some more clarity :https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class#:~:text=self%20represents%20the%20instance%20of,of%20the%20class%20in%20python.&text=%22__init__%22%20is%20a%20reseved,constructor%20in%20object%20oriented%20concepts.
-    def __init__ (self):  
+    def __init__ (self):  # read: https://www.w3schools.com/python/python_functions.asp
         
         # Create a product dict with price and cost    
         self.products_dict = {
@@ -40,26 +40,35 @@ class ServiceToDoApp:
         print("4. Checkout")
         print("Enter 'q' to quit.\n")
 
+    def show_available_products(self):
+        # Show the products that can be chosen, with product info
+         print("Available products: ")
+
+         for code, details in self.products_dict.items():
+             print(f"{code}. {details['name']} -Price: ${details['price']} -Cost: ${details['cost']}")
+    
+    def add_product(self, code):
+        #add product to list
+        if code in self.products_dict:
+            product = self.products_dict[code]
+            self.service_to_do.append({"product": product['name'], "done": False})
+            print(f"Product '{product['name']}' added!")
+        else:
+            print("Oh no that Product is not in your list, choose another")  
+
     def add_products(self):
-        # Show available products
-        print("Avavilable products: ")
-        product_codes = {str(index +1): product for index, product in enumerate(self.products_dict.keys())}
+        # Add multiple products 
+        self.show_available_products()
 
-        for code, product in product_codes.items():
-            price = self.products_dict[product][0]
-            print(f"{code}. {product} - price: ${price}")
+        n_service_to_do = int(input("\nHow many products do you want to add? "))
 
-        #  Add product to the list and append
-        n_service_to_do = int(input("How many products do you want to add: "))
-            
         for i in range(n_service_to_do):
-            code = input("Enter the product code to add to the list: ")
-            if code in product_codes:
-                task = product_codes[code]
-                self.service_to_do.append({"products": task, "done": False})
-                print("Product added!")
+            code = input("Enter the product code: ")
+            if code in self.products_dict:
+               self.add_product(code)  
             else:
-                print("Oh no that Product is not in your list, choose another")    
+                print("Product code not found, try again.")
+        print(self.service_to_do)
 
     def show_selected_products(self):
         # Show the products in the dict available for choosing
@@ -76,6 +85,8 @@ class ServiceToDoApp:
         self.service_to_do = [item for item in self.service_to_do if item["product"] != task_to_remove]
         print(f"{task_to_remove} removed from the list.")
 
+        self.show_selected_products()
+
     def checkout(self):
         # Add chosen products to list and send cost and price to daily_sales.txt
         if not self.service_to_do:
@@ -84,12 +95,19 @@ class ServiceToDoApp:
             print("Checkout complete! Saving sales data to file...")
 
             # Write the data to the txt file
-            with open("daily_sale.txt", "a") as file:  # read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file
+            with open("daily_sale.txt", "a") as file:  # read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, https://www.youtube.com/watch?v=Dw85RIvQlc8
                 for item in self.service_to_do:
                     product_name = item['product']
-                    product_price = self.products_dict[product_name][0]
-                    product_cost = self.products_dict[product_name][1] 
-                    file.write(f"{product_name} - ${product_price}\n")
+
+                    product_code = next((code for code, details in self.products_dict.items() if details['name'] == product_name), None)
+
+                    if product_code:
+                        product_price = self.products_dict[product_code]['price']
+                        product_cost = self.products_dict[product_code]['cost'] 
+                        file.write(f"{product_name} - ${product_price} (Cost: ${product_cost})\n")
+                    else:
+                        print(f"Error: Product code for '{product_name}' not found")
+
      
     def run(self):
         while True:
