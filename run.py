@@ -10,7 +10,10 @@ scope = [
 
 
 def connect_to_google_sheets():
-    """ Define scope """
+    """
+    Define scope, this feature was initially planned to send
+    sales data to google sheets
+    """
 
     creds = Credentials.from_service_account_file('creds.json')
     scope_creds = creds.with_scopes(scope)
@@ -21,7 +24,7 @@ def connect_to_google_sheets():
 
 class ServiceToDoApp:
     """
-    read for some more clarity :https://micropyramid.com/blog/understand-
+    Read for some more clarity :https://micropyramid.com/blog/understand-
     self-and-__init__-method-in-python-class#:~:text=self%20
     represents%20the%20instance%20of,of%20the%20class%20in%20python.
     &text=%22__init__%22%20is%20a%20reseved,
@@ -32,8 +35,8 @@ class ServiceToDoApp:
         self.total_price = 0
         self.total_cost = 0
 
-        # read: https://www.w3schools.com/python/python_functions.asp
-        # Create a product dict with price and cost    
+        # Read: https://www.w3schools.com/python/python_functions.asp
+        # Create a product dict with price and cost.
         self.products_dict = {
             '001': {'name': '20 Volume Oxide', 'price': 55, 'cost': 15}, 
             '002': {'name': '30 Volume Oxide', 'price': 65, 'cost': 25}, 
@@ -49,7 +52,7 @@ class ServiceToDoApp:
 
     def display_menu(self):
         # Create a list of functions for the user to navigate the menu
-        print("\n===Service To-Do App===")
+        print("\n===Customer Service Slip===")
         print("1. Add Products")
         print("2. Show selected product list")
         print("3. Remove Product from list")
@@ -57,7 +60,10 @@ class ServiceToDoApp:
         print("Enter 'q' to quit.\n")
 
     def show_available_products(self):
-        # Show the products that can be chosen, with product info
+        """
+        Show the products that can be chosen, with product info
+        when "1" is pressed
+        """
         print("Available products: ")
 
         for code, details in self.products_dict.items():
@@ -102,7 +108,7 @@ class ServiceToDoApp:
             print("\n Selected Products: ")
             for item in self.service_to_do:
                 print(f"- {item['product']}")
-                
+
     def remove_product(self):
         # Remove Item from chosen list
         task_to_remove = input("Enter the product to be removed: ")
