@@ -22,6 +22,15 @@ Let’s make the business process smoother, organized, and more profitable
 with this tool!
 
  **February 10, 2025**
+## Planning
+
+I’ve been working on a project to design an app that simplifies tasks for my sister, Jo-Ann, who owns her own hair salon. After discussing her needs with her during a client call, I gained a clearer understanding of what would be both manageable for me to build as a beginner and practical for her to implement in her business.
+
+The next step was to explore existing systems that offer functionalities like shopping carts or shopping lists. This helped me determine which features would be most relevant for the app. From there, I created a chart to map out the necessary building blocks and understand the components that would need to be developed.
+
+
+<img src="./assets/lucid_chart.png">
+
 
 ## Functionality
 
@@ -87,9 +96,20 @@ If you have credentials, such as in the Love Sandwiches project, you must create
 
 Connect your GitHub repository and deploy as normal.
 
-## Constraints
+## References
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+I did a great deal of searching to find add on solutions to the functionality I wanted for this project. Here are a list of the different reference videos and websites I used.
+
+- https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class#:~:text=self%20
+    represents%20the%20instance%20of,of%20the%20class%20in%20python.&text=%22__init__%22%20is%20a%20reseved,
+    constructor%20in%20object%20oriented%20concepts
+
+- https://www.youtube.com/watch?v=505pA-hUOFI
+
+- https://stackoverflow.com/questions/29956883/appending-data-to-txt-file
+
+- https://www.youtube.com/watch?v=Dw85RIvQlc8
+
 
 ---
 

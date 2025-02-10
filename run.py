@@ -2,7 +2,7 @@ import gspread
 """ Connects to google spreadsheets"""
 from google.oauth2.service_account import Credentials
 
-scope = [
+SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
@@ -15,21 +15,15 @@ def connect_to_google_sheets():
     sales data to google sheets
     """
 
-    creds = Credentials.from_service_account_file('creds.json')
-    scope_creds = creds.with_scopes(scope)
-    gspread_client = gspread.authorize(scope_creds)
-    sheet = gspread_client.open('salon_lavida_pricelist')
-    return sheet
+    CREDS = Credentials.from_service_account_file('creds.json')
+    SCOPE_CREDS = CREDS.with_scopes(SCOPE)
+    GSPREAD_CLIENT = gspread.authorize(SCOPE_CREDS)
+    SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
+    return SHEET
 
 
 class ServiceToDoApp:
-    """
-    Read for some more clarity :https://micropyramid.com/blog/understand-
-    self-and-__init__-method-in-python-class#:~:text=self%20
-    represents%20the%20instance%20of,of%20the%20class%20in%20python.
-    &text=%22__init__%22%20is%20a%20reseved,
-    constructor%20in%20object%20oriented%20concepts.
-    """
+    # Create a class to ensure the app can be used repeatedly
 
     def __init__ (self):
         self.total_price = 0
@@ -112,21 +106,35 @@ class ServiceToDoApp:
     def remove_product(self):
         # Remove Item from chosen list
         task_to_remove = input("Enter the product to be removed: ")
+        # Check if the product was found
+        product_found = False
+
+        # Create a list for the removed item to be kept
+        item_to_remove = None
+
         for item in self.service_to_do:
-            if item["product"] == task_to_remove:
-                product_name = item['product']
-                product_code = next((code for code, details in
-                                     self.products_dict.items()
-                                     if details['name'] == product_name), None)
+            # Find the product that matches the ite, to be removed
+            product_name = item['product']
+            product_code = next((code for code, details in
+                                self.products_dict.items()
+                                if details['name'] == product_name), None)
 
-                if product_code:
-                    self.total_price -= self.products_dict
-                    [product_code]['price']
+            if product_code == task_to_remove:
+                # remove the cost and price of item from the list
+                self.total_price -= self.products_dict[product_code]['price']
+                self.total_cost -= self.products_dict[product_code]['cost']
 
-                    self.total_cost -= self.products_dict[product_code]['cost']
-                self.service_to_do.remove(item)
-                print(f"{task_to_remove} removed from the list.")
+                item_to_remove = item
+                # Check that the product was found
+                product_found = True
                 break
+
+        if item_to_remove:
+            self.service_to_do.remove(item_to_remove)
+            print(f"product with code {task_to_remove} removed from the list.")
+        else:
+            print(f"Product code '{task_to_remove}' not found in the list.")
+
         self.show_selected_products()
 
     def checkout(self):
@@ -162,7 +170,7 @@ class ServiceToDoApp:
                                         None)
 
                     if product_code:
-                        file.write(f"{product_name} - ${self.products_dict[product_code]['price']} (Cost: ${self.products_dict[product_code]['cost']})\n")
+                        file.write(f"{product_name} - ${self.products_dict[product_code]['price']}(Cost: ${self.products_dict[product_code]['cost']})\n")
                     else:
                         print(f"Error: Product code for "
                               f"'{product_name}' not found")
@@ -205,7 +213,7 @@ class ServiceToDoApp:
             elif choice.lower() == 'q':
                 break   # break the while loop
             else:
-                print("Invalid product choice, try apain.")
+                print("Invalid product choice, try again.")
 
 
 app = ServiceToDoApp()
