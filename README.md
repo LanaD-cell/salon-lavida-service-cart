@@ -1,8 +1,24 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+
 
 Welcome,
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+**Introduction to Salon LaVida Service Management System**
+
+Welcome to the Service Management System for Salon LaVida, a dynamic and user-friendly Python project designed specifically to streamline the process of managing services, pricing, and sales for the salon. Inspired by the needs of my sister's salon, this project integrates essential business functions, allowing the salon to maintain accurate and organized records of the products and services used throughout the day.
+
+The core functionality of the system includes adding, removing, and tracking products and services, calculating totals, and handling sales data efficiently. 
+
+### Key Features:
+- **Product Management**: The system stores a list of products and their corresponding prices and costs, from hair care treatments to styling products. Each product can be added or                        removed as services are completed.
+- **Service List Management**: Salon employees can add and remove services to a customer’s order list, displaying the total price and cost in real-time.
+- **Checkout Process**: Once services are complete, the system calculates the total price, cost, and profit, and saves the sales data to a `daily_sales.txt` file for record-keeping.
+
+
+By implementing this system, Salon LaVida ensures accurate pricing and inventory tracking, while also optimizing the overall customer experience by reducing administrative overhead.
+
+Let’s make the business process smoother, organized, and more profitable with this tool!
+
+ **May 14, 2024**
 
 ## Reminders
 

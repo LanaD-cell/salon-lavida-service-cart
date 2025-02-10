@@ -1,20 +1,22 @@
-import gspread 
+import gspread
+""" Connects to google spreadsheets"""
 from google.oauth2.service_account import Credentials
+
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
 
 
 def connect_to_google_sheets():
-    # define scope
-    SCOPE = [
-        "https://www.googleapis.com/auth/spreadsheets",
-        "https://www.googleapis.com/auth/drive.file",
-        "https://www.googleapis.com/auth/drive"
-    ]
+    """ Define scope """
 
-    CREDS = Credentials.from_service_account_file('creds.json')
-    SCOPE_CREDS = CREDS.with_scopes(SCOPE)
-    GSPREAD_CLIENT = gspread.authorize(SCOPE_CREDS)
-    SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
-    return SHEET
+    creds = Credentials.from_service_account_file('creds.json')
+    scope_creds = creds.with_scopes(scope)
+    gspread_client = gspread.authorize(scope_creds)
+    sheet = gspread_client.open('salon_lavida_pricelist')
+    return sheet
 
 
 class ServiceToDoApp:
@@ -100,7 +102,7 @@ class ServiceToDoApp:
             print("\n Selected Products: ")
             for item in self.service_to_do:
                 print(f"- {item['product']}")
-  
+                
     def remove_product(self):
         # Remove Item from chosen list
         task_to_remove = input("Enter the product to be removed: ")
@@ -122,11 +124,15 @@ class ServiceToDoApp:
         self.show_selected_products()
 
     def checkout(self):
-        # Add chosen products to list and send cost and price to daily_sales.txt
+        """ Add chosen products to list and send cost 
+        and price to daily_sales.txt
+        """
         if not self.service_to_do:
             print("No products to check out.")
         else:
-            # Calculate the total price and cost when checking out and display on screen
+            """ Calculate the total price and cost when 
+            checking out and display on screen
+            """
             total_price = self.total_price
             total_cost = self.total_cost
 
@@ -137,20 +143,24 @@ class ServiceToDoApp:
 
             """
             Write the data to the txt file
-            Read about this method in: https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, 
+            Read about this method in: 
+            https://stackoverflow.com/questions/29956883/appending-data-to-txt-file, 
             https://www.youtube.com/watch?v=Dw85RIvQlc8
             """
             with open("daily_sale.txt", "a") as file:  
                 for item in self.service_to_do:
                     product_name = item['product']
                     product_code = next((code for code, 
-                                         details in self.products_dict.items() if 
-                                         details['name'] == product_name), None)
+                                        details in self.products_dict.items()
+                                        if details['name'] == product_name),
+                                        None)
 
                     if product_code:
-                        product_price = self.products_dict[product_code]['price']
-                        product_cost = self.products_dict[product_code]['cost'] 
-                        file.write(f"{product_name} - ${product_price} "
+                        product_price = self.products_dict[product_code]
+                        ['price']
+                        product_cost = self.products_dict[product_code]
+                        ['cost']
+                        file.write(f"{product_name} - ${product_price}"
                                    f"(Cost: ${product_cost})\n")
                     else:
                         print(f"Error: Product code for "
