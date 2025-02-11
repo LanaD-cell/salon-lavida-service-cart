@@ -1,8 +1,8 @@
+# Welcome to the Salon LaVida Service Management System, #
 
+<img src="./assets/mockup.png">
 
-Welcome,
-
-**Introduction to Salon LaVida Service Management System**
+## Introduction to Salon LaVida Service Management System
 
 Welcome to the Service Management System for Salon LaVida, a dynamic and user-friendly Python project designed specifically to streamline the process of managing services, pricing, and sales for the salon. Inspired by the needs of my sister's salon, this project integrates essential business functions, allowing the salon to maintain accurate and organized records of the products and services used throughout the day.
 
@@ -22,7 +22,7 @@ Let’s make the business process smoother, organized, and more profitable
 with this tool!
 
  **February 10, 2025**
-## Planning
+### Planning
 
 I’ve been working on a project to design an app that simplifies tasks for my sister, Jo-Ann, who owns her own hair salon. After discussing her needs with her during a client call, I gained a clearer understanding of what would be both manageable for me to build as a beginner and practical for her to implement in her business.
 
@@ -32,7 +32,7 @@ The next step was to explore existing systems that offer functionalities like sh
 <img src="./assets/lucid_chart.png">
 
 
-## Functionality
+### Functionality
 
 <img src="./assets/initial_page.png">
 
@@ -73,28 +73,10 @@ added to in the future and adjusted as products change.
 
 - "q" can be used at any step in the process to abort.
 
-<img src="./assets/data_sent_to_daily_sales_txt.png">
+<img src="./assets/googlesheet.png">
 
-- The data is then added to the daily_sales.txt file.
+- Data is sent to the google sheet once checkout is complete.
 
-## Reminders
-
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
-
-## Creating the Heroku app
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
 
 ## References
 
