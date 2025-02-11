@@ -61,6 +61,57 @@ class ServiceToDoApp:
     def __init__(self):
         self.product_list = ProductList()
 
+    def checkout(self):
+        """Handle checkout and send sales data to Google Sheets."""
+
+        if not self.product_list.service_to_do:
+            print(Fore.RED + "No products to check out.")
+            return
+
+        total_price = self.product_list.total_price
+        total_cost = self.product_list.total_cost
+
+        print(Fore.GREEN + "Checkout complete! Saving sales to Gspread...")
+        print(Fore.BLUE + f"Total Price: ${total_price}")
+        print(Fore.RED + f"Total Cost: ${total_cost}")
+        print(Fore.GREEN + f"Profit: ${total_price - total_cost}")
+
+        # Connect to Google Sheets
+        sheet = connect_to_google_sheets()
+        worksheet = sheet.worksheet('daily_sales')
+
+        rows_to_add = []
+
+        # Collect product data for Google Sheets
+        for item in self.product_list.service_to_do:
+            product_name = item['product']
+            product = next((p for p in self.product_list.products if
+                            p.name == product_name), None)
+            if product:
+                product_price = product.price
+                product_cost = product.cost
+                profit = product_price - product_cost
+                date = now.strftime("%d-%m-%Y")
+
+                row_data = [date, product_name, product_price,
+                            product_cost, profit]
+                rows_to_add.append(row_data)
+
+        # Append rows only once
+        if rows_to_add:
+            worksheet.append_rows(rows_to_add)
+            print(Fore.GREEN + "Data successfully saved to Google Sheets.")
+        else:
+            print(Fore.RED + "No data to save.")
+
+        # Clear product list and reset totals after checkout
+        self.product_list.service_to_do.clear()
+        self.product_list.total_price = 0
+        self.product_list.total_cost = 0
+
+        print(Fore.GREEN + "Product list successfully"
+              "cleared and totals reset.")
+
     print(Fore.GREEN + "Welcome to Salon Lavida Service Cart! Let’s\n"
           "make your Salon management easier by tracking sales\n"
           "and sending data directly to Google Sheets.\n")
@@ -203,57 +254,6 @@ class ServiceToDoApp:
                 print(f" - {item['product']}")
         else:
             print(Fore.RED + "No products left in the list.")
-
-    def checkout(self):
-        """Add chosen products to list.
-
-        Send the relevant sales data to Google sheet.
-        """
-
-        if not self.product_list.service_to_do:
-            print(Fore.RED + "No products to check out.")
-        else:
-
-            total_price = self.product_list.total_price
-            total_cost = self.product_list.total_cost
-
-            print(Fore.GREEN + "Checkout complete! Saving\n"
-                  "sales data to file...")
-            print(Fore.BLUE + f"Total Price: ${total_price}")
-            print(Fore.RED + f"Total Cost: ${total_cost}")
-            print(Fore.GREEN + f"Profit: ${total_price - total_cost}")
-
-            # send the data to google sheets
-            sheet = connect_to_google_sheets()
-            worksheet = sheet.worksheet('daily_sales')
-
-            rows_to_add = []
-
-            for item in self.product_list.service_to_do:
-                product_name = item['product']
-                product = next((p for p in self.product_list.products
-                                if p.name == product_name), None)
-                if product:
-                    product_price = product.price
-                    product_cost = product.cost
-                    profit = product_price - product_cost
-                    date = now.strftime("%d-%m-%Y")
-
-                    row_data = [date, product_name, product_price,
-                                product_cost, profit]
-                    rows_to_add.append(row_data)
-
-                if rows_to_add:
-                    worksheet.append_rows(rows_to_add)
-                    # Send data to google worksheet
-                    worksheet.append_row(row_data)
-                else:
-                    print(f"Error: Product '{product_name}' not found")
-
-            # Reset the list after checkout
-            self.product_list.service_to_do.clear()
-
-            print("Product list succesfully closed and ready for more action!")
 
     def calculate_totals(self):
         """Calculate totals for each list created."""
