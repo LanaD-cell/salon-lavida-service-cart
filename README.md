@@ -22,6 +22,8 @@ Let’s make the business process smoother, organized, and more profitable
 with this tool!
 
  **February 10, 2025**
+
+
 ### Planning
 
 I’ve been working on a project to design an app that simplifies tasks for my sister, Jo-Ann, who owns her own hair salon. After discussing her needs with her during a client call, I gained a clearer understanding of what would be both manageable for me to build as a beginner and practical for her to implement in her business.
@@ -80,7 +82,7 @@ added to in the future and adjusted as products change.
 - Data is sent to the google sheet once checkout is complete.
 ---
 
-## Testing
+## Testing and Debugging
 
 - Extensive testing was done by myself in VS Code.
 - The live site on [Heroku](https://salon-lavida-service-app-30430987c2a8.herokuapp.com/)
