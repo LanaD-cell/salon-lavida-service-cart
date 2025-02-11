@@ -1,16 +1,16 @@
+from google.oauth2.service_account import Credentials
 """
 Connects to google spreadsheets
 """
 import gspread
+import colorama
 """
 Use Colorama to bring color to my code
 """
-import colorama
-from colorama import Fore, Back, Style
-from google.oauth2.service_account import Credentials
+from colorama import Fore, init
+
 
 # Initialize Colorama
-from colorama import init
 init()
 
 SCOPE = [
@@ -53,9 +53,10 @@ class ServiceToDoApp:
         }
         # Create list to hold the products chosen
         self.service_to_do = []
-    print(Fore.GREEN + "Welcome to Salon Lavida Service Cart! Let’s make your salon\n"
-          "management easier by tracking sales and sending data\n"
-          "directly to Google Sheets.\n")
+    print(Fore.GREEN + "Welcome to Salon Lavida Service Cart! Let’s"
+          "make your Salon management easier by tracking sales"
+          "and sending data directly to Google Sheets.\n")
+
     print(Fore.BLUE + "Good morning Jo-Ann, let's make some money!\n")
 
     def display_menu(self):
@@ -97,7 +98,8 @@ class ServiceToDoApp:
             print(f"Total Price:${self.total_price} | "
                   f"Total Cost: ${self.total_cost}")
         else:
-            print(Fore.RED + "Oh no that Product is not in your list, choose another")
+            print(Fore.RED + "Oh no that Product is not in your list,"
+                  "please choose another")
 
     def add_products(self):
         """
@@ -172,7 +174,8 @@ class ServiceToDoApp:
             total_price = self.total_price
             total_cost = self.total_cost
 
-            print(Fore.GREEN + "Checkout complete! Saving sales data to file...")
+            print(Fore.GREEN + "Checkout complete! Saving"
+                  "sales data to file...")
             print(Fore.BLUE + f"Total Price: ${total_price}")
             print(Fore.RED + f"Total Cost: ${total_cost}")
             print(Fore.GREEN + f"Profit: ${total_price - total_cost}")
@@ -200,7 +203,7 @@ class ServiceToDoApp:
                     worksheet.append_row(row_data)
                 else:
                     print(f"Error: Product code for "
-                        f"'{product_name}' not found")
+                          f"'{product_name}' not found")
 
             # Reset the list after checkout
             self.service_to_do.clear()
