@@ -30,8 +30,77 @@ I’ve been working on a project to design an app that simplifies tasks for my s
 
 The next step was to explore existing systems that offer functionalities like shopping carts or shopping lists. This helped me determine which features would be most relevant for the app. From there, I created a chart to map out the necessary building blocks and understand the components that would need to be developed.
 
-I decided to add my product list as a class, as classes can encapsulate both data (attributes) and behavior (methods) related to products. This allows me to define clear operations (e.g., add_product(), remove_product(), update_price()), as well as being scalable for the future and being more readable.
+The design of this program was set up with careful consideration to ensure efficient and user-friendly salon management for tracking sales and services. Below is a detailed explanation of the key design choices and their purpose:
 
+#### Modular Structure
+
+- The code is well-organized into multiple classes and functions, making it modular and maintainable:
+
+- Product class: Represents individual products in the salon, encapsulating product details like code, name, price, and cost.
+- ProductList class: Manages the product catalog and tracks selected services. It maintains lists for service tasks and handles price and cost calculations.
+- ServiceToDoApp class: Acts as the main controller for the application, integrating user interactions, product selection, and communication with Google Sheets for sales tracking.
+- This modular approach promotes separation of concerns (fancy term found on a blog), making it easier to extend or modify specific features without affecting unrelated parts of the program.
+
+#### Google Sheets Integration
+
+- The connect_to_google_sheets() function connects to Google Sheets using service account credentials.
+- The checkout() method sends sales data (date, product name, price, cost, and profit) directly to a designated Google Sheets worksheet (daily_sales).
+- This ensures that sales data is automatically logged in a centralized, cloud-based platform, reducing manual record-keeping and making it easy to access and analyze data remotely.
+
+#### User-Friendly Console Interface
+
+- The program uses the Colorama library for color-coded messages to enhance user experience:
+
+- Green for successful operations
+- Red for errors or warnings
+- Blue for important information The app also features clear menus (display_menu()), input prompts, and detailed instructions.
+- Color-coded messages make the console interface more readable, helping users quickly identify information.
+- User prompts with "abort" options provide a seamless and error-tolerant workflow.
+
+#### Checkout and Data Persistence
+
+- During checkout, the app calculates totals and profits for selected services and then appends the sales data to Google Sheets.
+- Automating data persistence ensures that no sales information is lost.
+- Additionally, the profit calculation allows salon managers to track financial performance effortlessly.
+
+#### Flexible Product Selection and Removal
+
+- Users can:
+
+- Add multiple products (add_products()).
+- Remove products from the selected list (remove_product()).
+- View the current list of selected services (show_selected_products()).
+- This provides flexibility in managing customer orders.
+- Users can adjust their service list as needed without restarting the app.
+
+#### Error Handling and Input Validation
+
+- The program includes input validation to handle invalid entries gracefully, such as:
+
+- Ensuring product codes exist before adding them.
+- Handling non-numeric or out-of-range inputs for product quantities.
+- Providing the option to abort operations at any step.
+- This robust error handling makes the app more user-friendly and reliable, reducing the chances of crashes or incorrect data entries.
+
+#### Object-Oriented Design
+
+- Encapsulation of product and product list logic into classes helps manage state and logic effectively.
+- Each class has a clear responsibility, enhancing code readability and reusability.
+- Object-oriented design ensures that changes can be made independently in each component. For instance, adding new product attributes would only require updating the Product class without affecting other parts of the system.
+
+#### Conclusion
+This code structure was designed to balance user experience, maintainability, and data automation. By combining object-oriented principles, third-party integrations (Colorama and Google Sheets), and robust error handling, the program becomes a reliable tool for managing a salon's service and sales operations efficiently.
+
+---
+
+### Possible extention of the app
+
+- The app can be further expanded with additional functionalities to enhance salon management efficiency.
+- Features like inventory management can be integrated to track product stock levels, automatically deducting used items during checkout and alerting when stock is low.
+- Customer profiles can store client information, including service history and preferences, allowing personalized service and targeted promotions.
+- Additionally, implementing appointment scheduling, sales analytics dashboards, and staff management can make the app a comprehensive solution for salon operations, streamlining both customer engagement and backend processes.
+
+---
 
 <img src="./assets/lucid_chart.png">
 
@@ -88,6 +157,8 @@ added to in the future and adjusted as products change.
 - The live site on [Heroku](https://salon-lavida-service-app-30430987c2a8.herokuapp.com/)
 - Code was run through the [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/)
 <img src="./assets/pep8_linter.png">
+
+- I struggled to add the Date function. Not only to add it, but to send the data correctly to the gspread.
 
 ## References
 
