@@ -84,9 +84,7 @@ added to in the future and adjusted as products change.
 
 I did a great deal of searching to find add on solutions to the functionality I wanted for this project. Here are a list of the different reference videos and websites I used.
 
-- https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class#:~:text=self%20
-    represents%20the%20instance%20of,of%20the%20class%20in%20python.&text=%22__init__%22%20is%20a%20reseved,
-    constructor%20in%20object%20oriented%20concepts
+- https://micropyramid.com/blog/understand-self-and-__init__-method-in-python-class#:~:text=self%20represents%20the%20instance%20of,of%20the%20class%20in%20python.&     text=%22__init__%22%20is%20a%20reseved,constructor%20in%20object%20oriented%20concepts
 
 - https://www.youtube.com/watch?v=505pA-hUOFI
 
@@ -96,6 +94,13 @@ I did a great deal of searching to find add on solutions to the functionality I 
 
 
 - https://www.w3schools.com/python/python_functions.asp
+
+- https://testdriven.io/blog/clean-code-python/
+
+- https://www.youtube.com/watch?v=lbWCP-KMun8
+
+- https://ntsh-vicky.medium.com/basic-of-python-date-time-91349829971b
+
 ---
 
 Happy coding!

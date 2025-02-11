@@ -1,7 +1,9 @@
 from google.oauth2.service_account import Credentials
 from colorama import Fore, init
 import gspread
+from datetime import datetime
 
+now = datetime.now()
 
 # Initialize Colorama
 init()
@@ -64,6 +66,9 @@ class ServiceToDoApp:
           "and sending data directly to Google Sheets.\n")
 
     print(Fore.BLUE + "Good morning Jo-Ann, let's make some money!\n")
+
+    print(Fore.GREEN + "Date is (DD-MM-YYYY format): ",
+          now.strftime("%d-%m-%Y"))
 
     def get_user_input(self, prompt_message):
         """Get user input with abort functionality"""
@@ -222,6 +227,8 @@ class ServiceToDoApp:
             sheet = connect_to_google_sheets()
             worksheet = sheet.worksheet('daily_sales')
 
+            rows_to_add = []
+
             for item in self.product_list.service_to_do:
                 product_name = item['product']
                 product = next((p for p in self.product_list.products
@@ -230,10 +237,14 @@ class ServiceToDoApp:
                     product_price = product.price
                     product_cost = product.cost
                     profit = product_price - product_cost
+                    date = now.strftime("%d-%m-%Y")
 
-                    row_data = [product_name, product_price,
+                    row_data = [date, product_name, product_price,
                                 product_cost, profit]
+                    rows_to_add.append(row_data)
 
+                if rows_to_add:
+                    worksheet.append_rows(rows_to_add)
                     # Send data to google worksheet
                     worksheet.append_row(row_data)
                 else:
