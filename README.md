@@ -28,6 +28,8 @@ I’ve been working on a project to design an app that simplifies tasks for my s
 
 The next step was to explore existing systems that offer functionalities like shopping carts or shopping lists. This helped me determine which features would be most relevant for the app. From there, I created a chart to map out the necessary building blocks and understand the components that would need to be developed.
 
+I decided to add my product list as a class, as classes can encapsulate both data (attributes) and behavior (methods) related to products. This allows me to define clear operations (e.g., add_product(), remove_product(), update_price()), as well as being scalable for the future and being more readable.
+
 
 <img src="./assets/lucid_chart.png">
 

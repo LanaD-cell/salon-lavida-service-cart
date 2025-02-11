@@ -65,6 +65,14 @@ class ServiceToDoApp:
 
     print(Fore.BLUE + "Good morning Jo-Ann, let's make some money!\n")
 
+    def get_user_input(self, prompt_message):
+        """Get user input with abort functionality"""
+        value = input(f"{prompt_message} (Enter 'q' to abort):\n")
+        if value.lower() == 'q':
+            print(Fore.YELLOW + "Operation aborted.")
+            return None
+        return value
+
     def display_menu(self):
         """Create a list of functions."""
 
@@ -109,8 +117,12 @@ class ServiceToDoApp:
     def add_products(self):
         """Add multiple products."""
         self.show_available_products()
-        n_service_to_do = input("\nHow many products do\n"
-                                "you want to add?\n ")
+        n_service_to_do = self.get_user_input("\nHow many products do\n"
+                                              "you want to add?\n ")
+
+        # Check for q (abort)
+        if n_service_to_do is None:
+            return
 
         # Allow user to abort at this point by entering 'q'
         if n_service_to_do.lower() == 'q':
@@ -127,9 +139,8 @@ class ServiceToDoApp:
             return
 
         for _ in range(n_service_to_do):
-            code = input("Enter the product code (or 'q' to cancel):\n")
-            if code.lower() == 'q':
-                print(Fore.YELLOW + "Operation aborted.")
+            code = self.get_user_input("Enter the product code:\n")
+            if code is None:
                 break
             self.add_product(code)
 
@@ -148,8 +159,16 @@ class ServiceToDoApp:
     def remove_product(self):
         """Remove Item from chosen list."""
 
-        task_to_remove = input("Enter the product name or code\n"
-                               "to be removed:\n")
+        # Check if a list was entered.
+        if not self.product_list.service_to_do:
+            print(Fore.RED + "No products in the list to remove.")
+            return
+
+        task_to_remove = self.get_user_input("Enter the product name or code\n"
+                                             "to be removed:\n")
+
+        if task_to_remove is None:
+            return
 
         # Find the item in the service list
         item_to_remove = next(
@@ -179,8 +198,6 @@ class ServiceToDoApp:
                 print(f" - {item['product']}")
         else:
             print(Fore.RED + "No products left in the list.")
-
-        self.show_selected_products()
 
     def checkout(self):
         """Add chosen products to list.
