@@ -130,6 +130,7 @@ class ServiceToDoApp:
             code = input("Enter the product code (or 'q' to cancel):\n")
             if code.lower() == 'q':
                 print(Fore.YELLOW + "Operation aborted.")
+                break
             self.add_product(code)
 
         print(self.product_list.service_to_do)
