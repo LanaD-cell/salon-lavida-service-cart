@@ -187,4 +187,10 @@ I did a great deal of searching to find add on solutions to the functionality I 
 
 ---
 
-Happy coding!
+## Contact
+
+- Please feel free to contact me on [Illana De Beer](c.wnt.nd1053@gmail.com)
+- The live App in [Heroku](https://salon-lavida-service-app-30430987c2a8.herokuapp.com/)
+- The goodle sheet [salon-_lavida_pricelist](https://docs.google.com/spreadsheets/u/0/?ec=wgc-sheets-[module]-goto)
+
+

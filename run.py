@@ -1,10 +1,10 @@
+from datetime import datetime
 from google.oauth2.service_account import Credentials
 from colorama import Fore, init
 import gspread
-from datetime import datetime
 import pyfiglet as pf
 
-textArt = pf.figlet_format("salon lavida", font="ascii___")
+textArt = pf.figlet_format("SALON LAVIDA", font="bubble")
 print(textArt)
 
 now = datetime.now()
