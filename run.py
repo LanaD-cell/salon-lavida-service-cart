@@ -100,7 +100,7 @@ class ServiceToDoApp:
         # Append rows only once
         if rows_to_add:
             worksheet.append_rows(rows_to_add)
-            print(Fore.GREEN + "Data successfully saved to Google Sheets.")
+            print(Fore.MAGENTA + "Data successfully saved to Google Sheets.")
         else:
             print(Fore.RED + "No data to save.")
 
@@ -112,11 +112,13 @@ class ServiceToDoApp:
         print(Fore.GREEN + "Product list successfully"
               "cleared and totals reset.")
 
-    print(Fore.GREEN + "Welcome to Salon Lavida Service Cart! Let’s\n"
-          "make your Salon management easier by tracking sales\n"
-          "and sending data directly to Google Sheets.\n")
+    print(Fore.GREEN + "Welcome to Salon Lavida\n"
+          "Service Cart! Let’s make your Salon management easier by\n"
+          "tracking sales and sending data directly to Google Sheets.\n"
+          "Choose the relevant number corresponding\n"
+          "to the funtion required.\n")
 
-    print(Fore.BLUE + "Good morning Jo-Ann, let's make some money!\n")
+    print(Fore.MAGENTA + "Good morning Jo-Ann, let's make some money!\n")
 
     print(Fore.GREEN + "Date is (DD-MM-YYYY format): ",
           now.strftime("%d-%m-%Y"))
@@ -133,11 +135,11 @@ class ServiceToDoApp:
         """Create a list of functions."""
 
         print(Fore.WHITE + "\n===Customer Service Slip===")
-        print("1. Add Products")
-        print("2. Show selected product list")
-        print("3. Remove Product from list")
-        print("4. Checkout")
-        print("Enter 'q' to quit.\n")
+        print(Fore.LIGHTGREEN_EX + "1. Add Products")
+        print(Fore.LIGHTMAGENTA_EX + "2. Show selected product list")
+        print(Fore.LIGHTRED_EX + "3. Remove Product from list")
+        print(Fore.LIGHTYELLOW_EX + "4. Checkout")
+        print(Fore.CYAN + "Enter 'q' to quit.\n")
 
     def show_available_products(self):
         """Display the available products."""
@@ -173,7 +175,7 @@ class ServiceToDoApp:
     def add_products(self):
         """Add multiple products."""
         self.show_available_products()
-        n_service_to_do = self.get_user_input("\nHow many products do\n"
+        n_service_to_do = self.get_user_input(Fore.WHITE + "\nHow many products do\n"
                                               "you want to add?\n ")
 
         # Check for q (abort)
@@ -195,7 +197,7 @@ class ServiceToDoApp:
             return
 
         for _ in range(n_service_to_do):
-            code = self.get_user_input("Enter the product code:\n")
+            code = self.get_user_input(Fore.WHITE + "Enter the product code:\n")
             if code is None:
                 break
             self.add_product(code)
@@ -220,7 +222,7 @@ class ServiceToDoApp:
             print(Fore.RED + "No products in the list to remove.")
             return
 
-        task_to_remove = self.get_user_input("Enter the product name or code\n"
+        task_to_remove = self.get_user_input(Fore.WHITE + "Enter the product name or code\n"
                                              "to be removed:\n")
 
         if task_to_remove is None:
@@ -277,7 +279,7 @@ class ServiceToDoApp:
 
         while True:
             self.display_menu()
-            choice = input("Enter your choice: ")
+            choice = input(Fore.WHITE + "Enter your choice: ")
             if choice == '1':
                 self.add_products()
             elif choice == '2':
@@ -289,7 +291,7 @@ class ServiceToDoApp:
             elif choice.lower() == 'q':
                 break   # break the while loop
             else:
-                print("Invalid choice, try again.")
+                print(Fore.RED + "Invalid choice, try again.")
 
 
 app = ServiceToDoApp()
