@@ -114,7 +114,7 @@ class ServiceToDoApp:
         self.product_list.total_price = 0
         self.product_list.total_cost = 0
 
-        print(Fore.GREEN + "Product list successfully"
+        print(Fore.WHITE + "Product list successfully\n"
               "cleared and totals reset.")
 
     print(Fore.LIGHTBLUE_EX + "Service Cart!\n"
@@ -184,7 +184,7 @@ class ServiceToDoApp:
     def add_products(self):
         """Add multiple products."""
         self.show_available_products()
-        n_service_to_do = self.get_user_input(Fore.LIGHTGREEN_EX +
+        n_service_to_do = self.get_user_input(Fore.WHITE +
                                               "\nHow many products do\n"
                                               "you want to add?\n ")
 
@@ -207,7 +207,7 @@ class ServiceToDoApp:
             return
 
         for _ in range(n_service_to_do):
-            code = self.get_user_input(Fore.WHITE +
+            code = self.get_user_input(Fore.LIGHTMAGENTA_EX +
                                        "Enter the product code:\n")
             if code is None:
                 break
