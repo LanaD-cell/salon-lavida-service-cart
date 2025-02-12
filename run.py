@@ -179,7 +179,8 @@ class ServiceToDoApp:
     def add_products(self):
         """Add multiple products."""
         self.show_available_products()
-        n_service_to_do = self.get_user_input(Fore.WHITE + "\nHow many products do\n"
+        n_service_to_do = self.get_user_input(Fore.WHITE +
+                                              "\nHow many products do\n"
                                               "you want to add?\n ")
 
         # Check for q (abort)
@@ -201,7 +202,8 @@ class ServiceToDoApp:
             return
 
         for _ in range(n_service_to_do):
-            code = self.get_user_input(Fore.WHITE + "Enter the product code:\n")
+            code = self.get_user_input(Fore.WHITE +
+                                       "Enter the product code:\n")
             if code is None:
                 break
             self.add_product(code)
@@ -226,7 +228,8 @@ class ServiceToDoApp:
             print(Fore.RED + "No products in the list to remove.")
             return
 
-        task_to_remove = self.get_user_input(Fore.WHITE + "Enter the product name or code\n"
+        task_to_remove = self.get_user_input(Fore.WHITE +
+                                             "Enter the product name or code\n"
                                              "to be removed:\n")
 
         if task_to_remove is None:
