@@ -9,13 +9,13 @@ Welcome to the Service Management System for Salon LaVida, a dynamic and user-fr
 The core functionality of the system includes adding, removing, and tracking products and services, calculating totals, and handling sales data efficiently.
 
 ### Key Features:
-- **Product Management**: The system stores a list of products and their corresponding prices and costs, from hair care treatments to styling products. Each product can be added or                        removed as services are completed.
+
+- **Product Management**: The system stores a list of products and their corresponding prices and costs, from hair care treatments to styling products. Each product can be added or removed as services are completed.
 - **Service List Management**: Salon employees can add and remove services to a customer’s order list, displaying the total price and cost in real-time.
-- **Checkout Process**: Once services are complete, the system calculates the total price, cost, and profit, and saves the sales data to a `daily_sales.txt` file for record-keeping.
+- **Checkout Process**: Once services are complete, the system calculates the total price, cost, and profit, and saves the sales data to a "salon_lavida_pricelist" file for record-keeping.
 
 
-By implementing this system, Salon LaVida ensures accurate pricing and
-inventory tracking, while also optimizing the overall customer experience
+By implementing this system, Salon LaVida ensures accurate pricing and inventory tracking, while also optimizing the overall customer experience
 by reducing administrative overhead.
 
 Let’s make the business process smoother, organized, and more profitable

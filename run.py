@@ -1,6 +1,6 @@
 from datetime import datetime
 from google.oauth2.service_account import Credentials
-from colorama import Fore, init
+from colorama import Fore, Style, init
 import gspread
 import pyfiglet as pf
 
@@ -12,7 +12,7 @@ now = datetime.now()
 # Initialize Colorama
 init()
 
-SCOPE = [
+scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
@@ -23,11 +23,11 @@ def connect_to_google_sheets():
     """Connect to Google Sheets using service account credentials.
        Returns a Google Sheet instance"""
 
-    CREDS = Credentials.from_service_account_file('creds.json')
-    SCOPE_CREDS = CREDS.with_scopes(SCOPE)
-    GSPREAD_CLIENT = gspread.authorize(SCOPE_CREDS)
-    SHEET = GSPREAD_CLIENT.open('salon_lavida_pricelist')
-    return SHEET
+    creds = Credentials.from_service_account_file('creds.json')
+    scope_creds = creds.with_scopes(scope)
+    gspread_client = gspread.authorize(scope_creds)
+    sheet = gspread_client.open('salon_lavida_pricelist')
+    return sheet
 
 
 class Product:
@@ -76,9 +76,10 @@ class ServiceToDoApp:
         total_cost = self.product_list.total_cost
 
         print(Fore.WHITE + "Checkout complete! Saving sales to Gspread...")
-        print(Fore.BLUE + f"Total Price: ${total_price}")
-        print(Fore.RED + f"Total Cost: ${total_cost}")
-        print(Fore.GREEN + f"Profit: ${total_price - total_cost}")
+        print(Style.BRIGHT + Fore.BLUE + f"Total Price: ${total_price}")
+        print(Style.BRIGHT + Fore.RED + f"Total Cost: ${total_cost}")
+        print(Style.BRIGHT + Fore.GREEN + f"Profit:"
+              f"${total_price - total_cost}")
 
         # Connect to Google Sheets
         sheet = connect_to_google_sheets()
@@ -104,26 +105,20 @@ class ServiceToDoApp:
         # Append rows only once
         if rows_to_add:
             worksheet.append_rows(rows_to_add)
-            print(Fore.LIGHTMAGENTA_EX + "Data successfully\n"
+            print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "Data successfully\n"
                   "saved to Google Sheets.")
         else:
-            print(Fore.RED + "No data to save.")
+            print(Style.BRIGHT + Fore.RED + "No data to save.")
 
         # Clear product list and reset totals after checkout
         self.product_list.service_to_do.clear()
         self.product_list.total_price = 0
         self.product_list.total_cost = 0
 
-    def clear():
-        """
-        Clear function to clean-up the terminal so things don't get messy.
-        """
-        os.system("cls" if os.name == "nt" else "clear")
-
         print(Fore.WHITE + "Product list successfully\n"
               "cleared and totals reset.")
 
-    print(Fore.LIGHTBLUE_EX + "Service Cart!\n"
+    print(Style.BRIGHT + Fore.LIGHTBLUE_EX + "Service Cart!\n"
           "Let’s make your Salon management easier\n"
           "by tracking sales and sending data directly\n"
           "to Google Sheets.\n"
@@ -133,7 +128,7 @@ class ServiceToDoApp:
     textArt = pf.figlet_format("HELLO JO-ANN", font="bubble")
     print(textArt)
 
-    print(Fore.LIGHTMAGENTA_EX + "Let's make some money!\n")
+    print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "Let's make some money!\n")
 
     print(Fore.WHITE + "Date is (DD-MM-YYYY format): ",
           now.strftime("%d-%m-%Y"))
@@ -142,7 +137,7 @@ class ServiceToDoApp:
         """Get user input with abort functionality"""
         value = input(f"{prompt_message} (Enter 'q' to abort):\n")
         if value.lower() == 'q':
-            print(Fore.YELLOW + "Operation aborted.")
+            print(Style.BRIGHT + Fore.YELLOW + "Operation aborted.")
             return None
         return value
 
@@ -150,16 +145,17 @@ class ServiceToDoApp:
         """Create a list of functions."""
 
         print(Fore.WHITE + "\n===Customer Service Slip===")
-        print(Fore.LIGHTGREEN_EX + "1. Add Products")
-        print(Fore.LIGHTMAGENTA_EX + "2. Show selected product list")
-        print(Fore.LIGHTRED_EX + "3. Remove Product from list")
-        print(Fore.LIGHTYELLOW_EX + "4. Checkout")
-        print(Fore.CYAN + "Enter 'q' to quit.\n")
+        print(Style.BRIGHT + Fore.LIGHTGREEN_EX + "1. Add Products")
+        print(Style.BRIGHT + Fore.LIGHTMAGENTA_EX + "2. Show selected\n"
+              "product list")
+        print(Style.BRIGHT + Fore.LIGHTRED_EX + "3. Remove Product from list")
+        print(Style.BRIGHT + Fore.LIGHTYELLOW_EX + "4. Checkout")
+        print(Style.BRIGHT + Fore.CYAN + "Enter 'q' to quit.\n")
 
     def show_available_products(self):
         """Display the available products."""
 
-        print(Fore.LIGHTGREEN_EX + "Available products: ")
+        print(Style.BRIGHT + Fore.LIGHTGREEN_EX + "Available products: ")
         for product in self.product_list.products:
             print(f"{product.code}. {product.name} - Price:${product.price}"
                   f" - Cost:${product.cost}")
@@ -184,8 +180,8 @@ class ServiceToDoApp:
             print(f"Total Price:${self.product_list.total_price} | "
                   f"Total Cost: ${self.product_list.total_cost}")
         else:
-            print(Fore.RED + "Oh no, that product is not in your list,"
-                  "please choose another.")
+            print(Style.BRIGHT + Fore.RED + "Oh no, that product\n"
+                  "is not in your list, please choose another.")
 
     def add_products(self):
         """Add multiple products."""
@@ -206,29 +202,28 @@ class ServiceToDoApp:
         try:
             n_service_to_do = int(n_service_to_do)
             if n_service_to_do <= 0:
-                print(Fore.RED + "Please enter a valid number greater than 0")
+                print(Style.BRIGHT + Fore.RED + "Please enter a\n"
+                      "valid number greater than 0")
                 return
         except ValueError:
-            print(Fore.RED + "Invalid number. Please try again.")
+            print(Style.BRIGHT + Fore.RED + "Invalid number.\n"
+                  "Please try again.")
             return
 
         for _ in range(n_service_to_do):
-            code = self.get_user_input(Fore.LIGHTMAGENTA_EX +
+            code = self.get_user_input(Style.BRIGHT + Fore.LIGHTMAGENTA_EX +
                                        "Enter the product code:\n")
             if code is None:
                 break
             self.add_product(code)
 
-        # Check that items were added to the list
-        print(self.product_list.service_to_do)
-
     def show_selected_products(self):
         """Show the products in the dict available for choosing."""
 
         if not self.product_list.service_to_do:
-            print(Fore.RED + "\n No product selected!")
+            print(Style.BRIGHT + Fore.RED + "\n No product selected!")
         else:
-            print(Fore.GREEN + "\n Selected Products: ")
+            print(Style.BRIGHT + Fore.GREEN + "\n Selected Products: ")
             for item in self.product_list.service_to_do:
                 print(f"- {item['product']}")
 
@@ -237,7 +232,8 @@ class ServiceToDoApp:
 
         # Check if a list was entered.
         if not self.product_list.service_to_do:
-            print(Fore.RED + "No products in the list to remove.")
+            print(Style.BRIGHT + Fore.RED + "No products\n"
+                  "in the list to remove.")
             return
 
         task_to_remove = self.get_user_input(Fore.WHITE +
@@ -270,11 +266,11 @@ class ServiceToDoApp:
 
         # Display updated list after removing product.
         if self.product_list.service_to_do:
-            print(Fore.GREEN + "Updated list: ")
+            print(Style.BRIGHT + Fore.GREEN + "Updated list: ")
             for item in self.product_list.service_to_do:
                 print(f" - {item['product']}")
         else:
-            print(Fore.RED + "No products left in the list.")
+            print(Style.BRIGHT + Fore.RED + "No products left in the list.")
 
     def calculate_totals(self):
         """Calculate totals for each list created."""
@@ -310,7 +306,7 @@ class ServiceToDoApp:
             elif choice.lower() == 'q':
                 break   # break the while loop
             else:
-                print(Fore.RED + "Invalid choice, try again.")
+                print(Style.BRIGHT + Fore.RED + "Invalid choice, try again.")
 
 
 app = ServiceToDoApp()
