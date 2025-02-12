@@ -107,48 +107,65 @@ This code structure was designed to balance user experience, maintainability, an
 
 ### Functionality
 
-<img src="./assets/initial_page.png">
+<img src="./assets/welcome_page.png">
 
 - Initial page featuring a welcome message and a list of functions to choose from.
+
 ---
-<img src="./assets/function_menu.png">
+
+<img src="./assets/function_list.png">
 
 - The list of functions to choose from and a prompt for the user to enter the chosen option.
+
 ---
-<img src="./assets/product_menu.png">
+
+<img src="./assets/select_item_total.png">
 
 - When a option "1" is chosen, the product menu is shown, with a prompt to the user to
 confirm the number of items that should be added to the list.
----
-<img src="./assets/choose_total_menu_items_to_add.png">
 
 - The list only contains 5 Items for this project, but the list can be
 added to in the future and adjusted as products change.
----
-<img src="./assets/enter_product_codes_to_add.png">
 
-- A prompt for the user to enter the relevant item codes.
 ---
-<img src="./assets/list_items_added.png">
+
+<img src="./assets/list_shown.png">
 
 - A list of the Items added to the list is displayed.
 - In the instance a irrelevant code is entered a "false" statement will appear for only that code.
+
 ---
-<img src="./assets/checkout_after_service_completed.png">
+
+<img src="./assets/item_removed.png">
+<img src="./assets/item_removed_code.png">
+
+- items can be removed from the list before checkout is initialised.
+
+---
+
+<img src="./assets/ready_for_checkout.png">
 
 - Once the list/service is completed the checkout function can be triggered by choosing option "4".
----
-<img src="./assets/total_cos_total_price_basket_reset.png">
 
-- Upon successful checkout the total price and cost will be shown and relevent sales data will be sent to Daily_sales.txt.
 ---
+
+<img src="./assets/list_checkedout.png">
+
+- Upon successful checkout the total price and cost will be shown and relevent sales data will be sent to daily_sales google sheet.
+
+---
+
 <img src="./assets/q_for_quit.png">
+<img src="./assets/q_aborted.png">
 
 - "q" can be used at any step in the process to abort.
----
-<img src="./assets/googlesheet.png">
 
-- Data is sent to the google sheet once checkout is complete.
+---
+
+<img src="./assets/google_sheet.png">
+
+- Data is sent to the google sheet once checkout is complete. In the sheet, the daily profit is calculated per date.
+
 ---
 
 ## Testing and Debugging
