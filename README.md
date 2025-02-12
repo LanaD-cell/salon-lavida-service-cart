@@ -40,6 +40,7 @@ The design of this program was set up with careful consideration to ensure effic
 - ProductList class: Manages the product catalog and tracks selected services. It maintains lists for service tasks and handles price and cost calculations.
 - ServiceToDoApp class: Acts as the main controller for the application, integrating user interactions, product selection, and communication with Google Sheets for sales tracking.
 - This modular approach promotes separation of concerns (fancy term found on a blog), making it easier to extend or modify specific features without affecting unrelated parts of the program.
+- As a new developer, I have found that adopting a modular code structure not only enhances efficiency in building required functions but also significantly improves the troubleshooting process by making errors easier to identify and resolve.
 
 #### Google Sheets Integration
 
@@ -80,11 +81,9 @@ The design of this program was set up with careful consideration to ensure effic
 - Ensuring product codes exist before adding them.
 - Handling non-numeric or out-of-range inputs for product quantities.
 - Providing the option to abort operations at any step.
-- This robust error handling makes the app more user-friendly and reliable, reducing the chances of crashes or incorrect data entries.
 
 #### Object-Oriented Design
 
-- Encapsulation of product and product list logic into classes helps manage state and logic effectively.
 - Each class has a clear responsibility, enhancing code readability and reusability.
 - Object-oriented design ensures that changes can be made independently in each component. For instance, adding new product attributes would only require updating the Product class without affecting other parts of the system.
 
@@ -171,6 +170,16 @@ added to in the future and adjusted as products change.
 ## Testing and Debugging
 
 - Extensive testing was done by myself in VS Code.
+  - Test for inputs:
+    - a letter a
+    - multiple letters abc
+    - a number 1
+    - zero 0
+    - multiple numbers 123
+    - an empty ENTER with nothing ENTER
+    - only spaces
+    - special characters ? ! @
+
 - The live site on [Heroku](https://salon-lavida-service-app-30430987c2a8.herokuapp.com/)
 - Code was run through the [Code Institute CI Python Linter](https://pep8ci.herokuapp.com/)
 <img src="./assets/pep8_linter.png">
@@ -179,6 +188,17 @@ added to in the future and adjusted as products change.
 
 
 ## Deployment
+
+### Deployment for me as the developer
+
+- Use this link to connect to [Heroku](https://www.heroku.com/).
+- In the top right hand corner click the burger-icon and choose Dashboard.
+- Click on the link for salon-lavida-service-app.
+- Click on Deploy and then on Deploy Branch.
+
+### Deployment for the User
+
+- Connect to the live site on [Heroku](https://salon-lavida-service-app-30430987c2a8.herokuapp.com/)
 
 
 ## References
