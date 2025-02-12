@@ -104,7 +104,8 @@ class ServiceToDoApp:
         # Append rows only once
         if rows_to_add:
             worksheet.append_rows(rows_to_add)
-            print(Fore.MAGENTA + "Data successfully saved to Google Sheets.")
+            print(Fore.LIGHTMAGENTA_EX + "Data successfully"
+                  "saved to Google Sheets.")
         else:
             print(Fore.RED + "No data to save.")
 
@@ -116,7 +117,7 @@ class ServiceToDoApp:
         print(Fore.GREEN + "Product list successfully"
               "cleared and totals reset.")
 
-    print(Fore.GREEN + "Welcome to Salon Lavida\n"
+    print(Fore.LIGHTMAGENTA_EX + "Welcome to Salon Lavida\n"
           "Service Cart! Let’s make your Salon management easier by\n"
           "tracking sales and sending data directly to Google Sheets.\n"
           "Choose the relevant number corresponding\n"
@@ -124,7 +125,7 @@ class ServiceToDoApp:
 
     print(Fore.MAGENTA + "Good morning Jo-Ann, let's make some money!\n")
 
-    print(Fore.GREEN + "Date is (DD-MM-YYYY format): ",
+    print(Fore.WHITE + "Date is (DD-MM-YYYY format): ",
           now.strftime("%d-%m-%Y"))
 
     def get_user_input(self, prompt_message):
@@ -148,7 +149,7 @@ class ServiceToDoApp:
     def show_available_products(self):
         """Display the available products."""
 
-        print("Available products: ")
+        print(Fore.LIGHTGREEN_EX + "Available products: ")
         for product in self.product_list.products:
             print(f"{product.code}. {product.name} - Price:${product.price}"
                   f" - Cost:${product.cost}")
@@ -179,7 +180,7 @@ class ServiceToDoApp:
     def add_products(self):
         """Add multiple products."""
         self.show_available_products()
-        n_service_to_do = self.get_user_input(Fore.WHITE +
+        n_service_to_do = self.get_user_input(Fore.LIGHTGREEN_EX +
                                               "\nHow many products do\n"
                                               "you want to add?\n ")
 
@@ -208,6 +209,7 @@ class ServiceToDoApp:
                 break
             self.add_product(code)
 
+        # Check that items were added to the list
         print(self.product_list.service_to_do)
 
     def show_selected_products(self):
