@@ -75,7 +75,7 @@ class ServiceToDoApp:
         total_price = self.product_list.total_price
         total_cost = self.product_list.total_cost
 
-        print(Fore.GREEN + "Checkout complete! Saving sales to Gspread...")
+        print(Fore.WHITE + "Checkout complete! Saving sales to Gspread...")
         print(Fore.BLUE + f"Total Price: ${total_price}")
         print(Fore.RED + f"Total Cost: ${total_cost}")
         print(Fore.GREEN + f"Profit: ${total_price - total_cost}")
@@ -117,13 +117,17 @@ class ServiceToDoApp:
         print(Fore.GREEN + "Product list successfully"
               "cleared and totals reset.")
 
-    print(Fore.LIGHTMAGENTA_EX + "Welcome to Salon Lavida\n"
-          "Service Cart! Let’s make your Salon management easier by\n"
-          "tracking sales and sending data directly to Google Sheets.\n"
+    print(Fore.LIGHTBLUE_EX + "Service Cart!\n"
+          "Let’s make your Salon management easier\n"
+          "by tracking sales and sending data directly\n"
+          "to Google Sheets.\n"
           "Choose the relevant number corresponding\n"
           "to the funtion required.\n")
 
-    print(Fore.MAGENTA + "Good morning Jo-Ann, let's make some money!\n")
+    textArt = pf.figlet_format("HELLO JO-ANN", font="bubble")
+    print(textArt)
+
+    print(Fore.LIGHTMAGENTA_EX + "Let's make some money!\n")
 
     print(Fore.WHITE + "Date is (DD-MM-YYYY format): ",
           now.strftime("%d-%m-%Y"))
