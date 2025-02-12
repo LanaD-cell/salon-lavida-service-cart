@@ -104,7 +104,7 @@ class ServiceToDoApp:
         # Append rows only once
         if rows_to_add:
             worksheet.append_rows(rows_to_add)
-            print(Fore.LIGHTMAGENTA_EX + "Data successfully"
+            print(Fore.LIGHTMAGENTA_EX + "Data successfully\n"
                   "saved to Google Sheets.")
         else:
             print(Fore.RED + "No data to save.")
@@ -113,6 +113,12 @@ class ServiceToDoApp:
         self.product_list.service_to_do.clear()
         self.product_list.total_price = 0
         self.product_list.total_cost = 0
+
+    def clear():
+        """
+        Clear function to clean-up the terminal so things don't get messy.
+        """
+        os.system("cls" if os.name == "nt" else "clear")
 
         print(Fore.WHITE + "Product list successfully\n"
               "cleared and totals reset.")

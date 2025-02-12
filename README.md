@@ -177,6 +177,10 @@ added to in the future and adjusted as products change.
 
 - I struggled to add the Date function. Not only to add it, but to send the data correctly to the gspread.
 
+
+## Deployment
+
+
 ## References
 
 I did a great deal of searching to find add on solutions to the functionality I wanted for this project. Here are a list of the different reference videos and websites I used.
