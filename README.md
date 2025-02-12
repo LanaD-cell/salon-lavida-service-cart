@@ -183,6 +183,8 @@ I did a great deal of searching to find add on solutions to the functionality I 
 
 - https://www.freecodecamp.org/news/python-switch-statement-switch-case-example/
 
+- https://medium.com/towards-data-science/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
+
 ---
 
 Happy coding!
